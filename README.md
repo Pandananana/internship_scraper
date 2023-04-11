@@ -10,11 +10,14 @@ The Internship Scraper is a Python project that uses the Selenium library to scr
 
 ## Installation
 1. Clone the project to your local system.
-2. Make sure you have Python 3.x installed on your system.
-3. Install the required libraries using the following command: 
+2. Create a token.txt file and copy your Github Personal Access Token into it
+
+        https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+3. Make sure you have Python 3.x installed on your system.
+4. Install the required libraries using the following command: 
 
         pip install selenium pandas webdriver_manager
-4. Open the Internship Scraper project in your preferred Python IDE or text editor.
+5. Open the Internship Scraper project in your preferred Python IDE or text editor.
 
 
 ## Running the Project
