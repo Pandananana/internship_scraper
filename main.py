@@ -6,6 +6,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 import time
 import pandas as pd
 
+# Function to scrape company page and append data to dataframe
 def checkCompanyPage(number, df, backlink):
     time.sleep(0.2)
     driver.find_element(By.CSS_SELECTOR, "div.mb-30:nth-child({0})".format(str(number))).click()
@@ -23,19 +24,29 @@ def checkCompanyPage(number, df, backlink):
     driver.get(backlink)
     return df
 
+# Configure Firefox options
 opts = FirefoxOptions()
-#opts.add_argument("--headless")
+# Uncomment the following line to run the browser in headless mode
+# opts.add_argument("--headless")
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()),options=opts)
+
+# Create an empty dataframe to store scraped data
 df = pd.DataFrame(columns=["Name", "Employees", "Industries", "Link", "Note"])
 
 ## ------ Start Browser Bot ------ ##
+
+# Open the website to scrape
 link = "https://thehub.io/startups?industries=robotics&numberOfEmployees=1-10&numberOfEmployees=11-50&countryCodes=DK"
 driver.get(link)
 driver.implicitly_wait(30)
 time.sleep(0.2)
 print("Website Opened")
+
+# Close cookie banner
 driver.find_element(By.CSS_SELECTOR, ".coi-consent-banner__agree-button").click()
 print("Cookie banner closed")
+
+# Print page title
 print(driver.find_element(By.CSS_SELECTOR, ".d-flex > h6:nth-child(1)").text)
 
 # Find number of pages
@@ -52,6 +63,6 @@ for j in range(1, pages+1):
     if j != pages:
         driver.get(link + "&page={0}".format(str(j+1)))
 
-# Save to CSV
+# Save scraped data to CSV
 df.to_csv("data.csv", sep=",", header=True, index=False)
 driver.quit()
